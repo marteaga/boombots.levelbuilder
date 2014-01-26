@@ -1,5 +1,6 @@
 ﻿using Boombots.LevelEditor.Models;
 using Microsoft.Expression.Interactivity.Layout;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -67,7 +68,18 @@ namespace Boombots.LevelEditor
             }
 
             // save to a file
-            System.IO.File.WriteAllLines(@"level.txt", lines.ToArray());
+            var dlg = new SaveFileDialog();
+            dlg.FileName = "level"; // Default file name
+            dlg.DefaultExt = ".text"; // Default file extension
+            dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+                System.IO.File.WriteAllLines(dlg.FileName, lines.ToArray());
+
         }
 
         private void SetupBlockList()

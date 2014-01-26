@@ -13,16 +13,16 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
-    		<ListView x:Name="lstBlocks" MinWidth="16" ItemTemplate="{DynamicResource ImageListTemplate}">
-    			<ListView.Resources>
+    		<ListBox x:Name="lstBlocks" MinWidth="16" ItemTemplate="{DynamicResource ImageListTemplate}">
+    			<ListBox.Resources>
     				<DataTemplate x:Key="ImageListTemplate">
     					<Grid>
     						<Image Height="16" VerticalAlignment="Stretch" Width="16" Stretch="None" Source="{Binding Filename}"/>
     					</Grid>
     				</DataTemplate>
-    			</ListView.Resources>
+    			</ListBox.Resources>
 			
-    		</ListView>
+    		</ListBox>
     		<Button x:Name="btnSave" Content="Save" VerticalAlignment="Bottom" Grid.Row="1" Margin="10"/>
     	</Grid>
     	<local:LinedGrid Grid.Column="1" x:Name="gameGrid">

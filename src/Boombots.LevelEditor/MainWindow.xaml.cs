@@ -71,6 +71,7 @@ namespace Boombots.LevelEditor
             var dlg = new SaveFileDialog();
             dlg.FileName = "level"; // Default file name
             dlg.DefaultExt = ".text"; // Default file extension
+            dlg.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
 
             // Show save file dialog box

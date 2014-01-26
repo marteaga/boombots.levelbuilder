@@ -23,8 +23,11 @@
     			</ListBox.Resources>
 			
     		</ListBox>
-    		<Button x:Name="btnSave" Content="Save" VerticalAlignment="Bottom" Grid.Row="1" Margin="10"/>
-    	</Grid>
+            <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Bottom">
+    		    <Button x:Name="btnLoad" Content="Load" Margin="10"/>
+                <Button x:Name="btnSave" Content="Save" Margin="10"/>
+            </StackPanel>
+        </Grid>
     	<local:LinedGrid Grid.Column="1" x:Name="gameGrid" Width="512px" Height="288px">
     		<local:LinedGrid.Background>
     			<ImageBrush ImageSource="Images/GameBG.png" Stretch="Uniform"/>

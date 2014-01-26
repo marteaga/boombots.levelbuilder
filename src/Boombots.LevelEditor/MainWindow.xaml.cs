@@ -27,6 +27,7 @@ namespace Boombots.LevelEditor
     {
 
         private List<GameBlock> _blocks;
+        private Size GRID_SIZE = new Size(30, 16);
 
         public MainWindow()
         {
@@ -37,6 +38,7 @@ namespace Boombots.LevelEditor
 
             // wire up the save button
             btnSave.Click += btnSave_Click;
+            btnLoad.Click += btnLoad_Click;
 
             // build the grid
             BuildGrid();
@@ -83,6 +85,45 @@ namespace Boombots.LevelEditor
 
         }
 
+        void btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new OpenFileDialog();
+            dlg.DefaultExt = ".text"; // Default file extension
+            dlg.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+            dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // clear the prevous ones
+                gameGrid.Children.Clear();
+
+                // read the file
+                var lines = File.ReadAllLines(dlg.FileName);
+                for (int x = 0; x < lines.Length; x++)
+                {
+                    for (int y = 0; y < GRID_SIZE.Width; y++)
+                    {
+                        var block = _blocks.Find(i => i.CharCode.Equals(lines[x][y].ToString()));
+                        if(block != null)
+                        {
+                            block = block.Clone();
+                            var img = CreateImageFromBlock(block);
+                            Grid.SetRow(img, x);
+                            Grid.SetColumn(img, y);
+
+                            // set the data context
+                            (img.DataContext as GameBlock).CurrentCoord = new Point(x, y);
+                        }
+                    }
+                }
+            }
+               
+        }
+
         private void SetupBlockList()
         {
             CreateBlocksDataSource();
@@ -91,10 +132,10 @@ namespace Boombots.LevelEditor
                 
         private void BuildGrid()
         {
-            // board game is 30x16
-            for(int x = 0;x<30; x++)
+            // board game is 30x16 - should be calculated by the size of the background image
+            for(int x = 0;x<GRID_SIZE.Width; x++)
                 gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
-            for (int x = 0; x < 16; x++)
+            for (int x = 0; x < GRID_SIZE.Height; x++)
                 gameGrid.RowDefinitions.Add(new RowDefinition());
 
             gameGrid.MouseLeftButtonUp += (s, args) =>
@@ -104,15 +145,21 @@ namespace Boombots.LevelEditor
                 var block = lstBlocks.SelectedItem as GameBlock;
                 if (block != null)
                 {
-                    var img = new Image();
-                    var uriSource = new Uri(block.Filename, UriKind.Relative);
-                    img.Source = new BitmapImage(uriSource);
-                    img.DataContext = block.Clone();
-                    img.MouseLeftButtonUp += img_MouseLeftButtonUp;
-                    gameGrid.Children.Add(img);
-                    this.SnapToGrid(img, p);
+                    var img = CreateImageFromBlock(block);
+                    SnapToGrid(img, p);
                 }
             };
+        }
+
+        private Image CreateImageFromBlock(GameBlock block)
+        {
+            var img = new Image();
+            var uriSource = new Uri(block.Filename, UriKind.Relative);
+            img.Source = new BitmapImage(uriSource);
+            img.DataContext = block.Clone();
+            img.MouseLeftButtonUp += img_MouseLeftButtonUp;
+            gameGrid.Children.Add(img);
+            return img;
         }
 
         void img_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

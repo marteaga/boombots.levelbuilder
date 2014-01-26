@@ -1,6 +1,7 @@
 ﻿<Window x:Class="Boombots.LevelEditor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Boombots.LevelEditor"
         Title="Boombot Level Editor" Height="426" Width="789" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,63 +25,10 @@
     		</ListView>
     		<Button x:Name="btnSave" Content="Save" VerticalAlignment="Bottom" Grid.Row="1" Margin="10"/>
     	</Grid>
-    	<Grid Grid.Column="1" ShowGridLines="True">
-    		<Grid.Background>
+    	<local:LinedGrid Grid.Column="1" x:Name="gameGrid">
+    		<local:LinedGrid.Background>
     			<ImageBrush ImageSource="Images/GameBG.png" Stretch="Uniform"/>
-    		</Grid.Background>
-    		<Grid.RowDefinitions>
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    			<RowDefinition />
-    		</Grid.RowDefinitions>
-    		<Grid.ColumnDefinitions>
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    			<ColumnDefinition />
-    		</Grid.ColumnDefinitions>
-			
-    	</Grid>
+    		</local:LinedGrid.Background>
+    	</local:LinedGrid>
     </Grid>
 </Window>

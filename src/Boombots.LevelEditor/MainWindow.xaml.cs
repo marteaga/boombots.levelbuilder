@@ -21,7 +21,6 @@ namespace Boombots.LevelEditor
     /// </summary>
     public partial class MainWindow : Window
     {
-        // board game is 30x16
 
         private List<GameBlock> _blocks;
 
@@ -34,11 +33,23 @@ namespace Boombots.LevelEditor
 
             // wire up the save button
             btnSave.Click += btnSave_Click;
+
+            // build the grid
+            BuildGrid();
         }
 
         void btnSave_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("TODO");
+        }
+
+        private void BuildGrid()
+        {
+            // board game is 30x16
+            for(int x = 0;x<30; x++)
+                gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            for (int x = 0; x < 16; x++)
+                gameGrid.RowDefinitions.Add(new RowDefinition());
         }
 
         private void CreateBlocksDataSource()

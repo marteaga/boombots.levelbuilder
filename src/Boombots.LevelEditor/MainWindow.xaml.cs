@@ -2,6 +2,7 @@
 using Microsoft.Expression.Interactivity.Layout;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +43,31 @@ namespace Boombots.LevelEditor
 
         void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("TODO");
+            var lines = new List<string>();
+            var sb = new StringBuilder();
+            // loop all the rows and columns
+            for (int x = 0; x < gameGrid.RowDefinitions.Count; x++)
+            {
+                for (int y = 0; y < gameGrid.ColumnDefinitions.Count; y++)
+                {
+
+                    var item = gameGrid.Children
+                                              .Cast<Image>()
+                                              .Where(i => (i.DataContext as GameBlock).CurrentCoord.Equals(new Point(x, y)))
+                                              .FirstOrDefault();
+
+                    if (item == null)
+                        sb.Append('.');
+                    else
+                        sb.Append((item.DataContext as GameBlock).CharCode);
+                }
+                // add a line fo rthe next row
+                lines.Add(sb.ToString());
+                sb.Clear();
+            }
+
+            // save to a file
+            System.IO.File.WriteAllLines(@"level.txt", lines.ToArray());
         }
 
         private void SetupBlockList()
@@ -69,6 +94,7 @@ namespace Boombots.LevelEditor
                     var img = new Image();
                     var uriSource = new Uri(block.Filename, UriKind.Relative);
                     img.Source = new BitmapImage(uriSource);
+                    img.DataContext = block.Clone();
                     img.MouseLeftButtonUp += img_MouseLeftButtonUp;
                     gameGrid.Children.Add(img);
                     this.SnapToGrid(img, p);
@@ -112,6 +138,9 @@ namespace Boombots.LevelEditor
 
             Grid.SetRow(element, row);
             Grid.SetColumn(element, column);
+
+            // set the data context
+            (element.DataContext as GameBlock).CurrentCoord = new Point(row, column);
         }
 
 

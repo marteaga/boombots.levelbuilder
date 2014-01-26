@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Boombots.LevelEditor"
-        Title="Boombot Level Editor" Height="426" Width="789" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Boombot Level Editor" Height="340px" Width="612px" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -25,7 +25,7 @@
     		</ListBox>
     		<Button x:Name="btnSave" Content="Save" VerticalAlignment="Bottom" Grid.Row="1" Margin="10"/>
     	</Grid>
-    	<local:LinedGrid Grid.Column="1" x:Name="gameGrid">
+    	<local:LinedGrid Grid.Column="1" x:Name="gameGrid" Width="512px" Height="288px">
     		<local:LinedGrid.Background>
     			<ImageBrush ImageSource="Images/GameBG.png" Stretch="Uniform"/>
     		</local:LinedGrid.Background>

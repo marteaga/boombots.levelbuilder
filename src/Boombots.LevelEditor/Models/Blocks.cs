@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Boombots.LevelEditor.Models
 {
@@ -12,6 +13,16 @@ namespace Boombots.LevelEditor.Models
 
         public string CharCode { get; set; }
 
-        public System.Windows.Point CurrentCoord { get; set; }
+        public Point CurrentCoord { get; set; }
+
+        public GameBlock Clone()
+        {
+            return new GameBlock()
+            {
+                Filename = this.Filename,
+                CharCode = this.CharCode,
+                CurrentCoord = this.CurrentCoord,
+            };
+        }
     }
 }
